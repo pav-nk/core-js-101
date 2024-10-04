@@ -6,6 +6,8 @@
  ******************************************************************************************* */
 
 
+const { getRectangleArea } = require('./02-numbers-tasks');
+
 /**
  * Returns the result of concatenation of two strings.
  *
@@ -202,8 +204,26 @@ function extractEmails(str) {
  *             '└──────────┘\n'
  *
  */
-function getRectangleString(/* width, height */) {
-  throw new Error('Not implemented');
+function getRectangleString(width, height) {
+  const result = Array(getRectangleArea(width, height)).fill(' ').map((str, index, arr) => {
+    if ((index + 1) % width === 1) {
+      if (index === 0) return '┌';
+      if (index === arr.length - width) return '└';
+      return '│';
+    }
+    if ((index + 1) % width === 0) {
+      if (index + 1 === width) return '┐\n';
+      if (index === arr.length - 1) return '┘';
+      return '│\n';
+    }
+    if ((index + 1 >= width) && (index + 1 <= arr.length - width)) {
+      return str;
+    }
+    return '─';
+  }).join('')
+    .split('\n')
+    .join('\n');
+  return `${result}\n`;
 }
 
 
