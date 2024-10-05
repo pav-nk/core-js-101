@@ -240,8 +240,15 @@ function toArrayOfSquares(arr) {
  *   [ 0, 0, 0, 0, 0]         => [ 0, 0, 0, 0, 0]
  *   [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] => [ 1, 3, 6, 10, 15, 21, 28, 36, 45, 55 ]
  */
-function getMovingSum(/* arr */) {
-  throw new Error('Not implemented');
+function getMovingSum(arr) {
+  return arr.reduce((acc, el, index) => {
+    if (index === 0) {
+      acc.push(el);
+      return acc;
+    }
+    acc.push(acc[acc.length - 1] + el);
+    return acc;
+  }, []);
 }
 
 /**
@@ -330,8 +337,21 @@ function getPositivesCount(arr) {
  *   [ 'nine','eight','nine','eight'] => [ 'eight','eight','nine','nine']
  *   [ 'one','one','one','zero' ]     => [ 'zero','one','one','one' ]
  */
-function sortDigitNamesByNumericOrder(/* arr */) {
-  throw new Error('Not implemented');
+function sortDigitNamesByNumericOrder(arr) {
+  const digitValues = {
+    one: 1,
+    two: 2,
+    three: 3,
+    four: 4,
+    five: 5,
+    six: 6,
+    seven: 7,
+    eight: 8,
+    nine: 9,
+    zero: 0,
+  };
+  return arr.map((item) => digitValues[item]).sort((a, b) => a - b)
+    .map((item) => Object.entries(digitValues).find(([, value]) => value === item)[0]);
 }
 
 
@@ -470,10 +490,16 @@ function getIdentityMatrix(n) {
  *     0, 100 => [ 0, 1, 2, ..., 100 ]
  *     3, 3   => [ 3 ]
  */
-function getIntervalArray(/* start, end */) {
-  throw new Error('Not implemented');
+function getIntervalArray(start, end) {
+  return Array(end - start + 1).fill(start).reduce((acc, num, index) => {
+    if (index === 0) {
+      acc.push(num);
+      return acc;
+    }
+    acc.push(acc[index - 1] + 1);
+    return acc;
+  }, []);
 }
-
 /**
  * Returns array containing only unique values from the specified array.
  *
