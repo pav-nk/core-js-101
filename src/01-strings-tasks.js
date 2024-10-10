@@ -303,8 +303,25 @@ function isString(value) {
  *   'Q♠' => 50
  *   'K♠' => 51
  */
-function getCardId(/* value */) {
-  throw new Error('Not implemented');
+function getCardId(value) {
+  const suitsIndexes = {
+    '♣': 0,
+    '♦': 13,
+    '♥': 26,
+    '♠': 39,
+  };
+  const indexesOfSeniorCards = {
+    A: 0,
+    J: 10,
+    Q: 11,
+    K: 12,
+  };
+  const val1 = value.length > 2 ? value.slice(0, 2) : value.charAt(0);
+  const val2 = value.slice(-1);
+  if (!Object.keys(indexesOfSeniorCards).includes(val1)) {
+    return (+val1 - 1) + suitsIndexes[val2];
+  }
+  return indexesOfSeniorCards[val1] + suitsIndexes[val2];
 }
 
 
